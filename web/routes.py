@@ -7,7 +7,7 @@ from .utils import check_login
 @app.route('/main', methods=['GET'])
 @login_required
 def main():
-    return f'Hello, {current_user.username}'
+    return render_template('main.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
