@@ -1,8 +1,9 @@
-from . import db
+from . import db, login_manager
+from flask_login import UserMixin
 from datetime import datetime
 
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -34,3 +35,8 @@ class Actions(db.Model):
                           default=datetime.utcnow())
     door_id = db.Column(db.Integer, db.ForeignKey('doors.id'))
     action = db.Column(db.Boolean, nullable=False)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(user_id)
