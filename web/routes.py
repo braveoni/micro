@@ -1,8 +1,7 @@
 from flask import request, redirect, flash, render_template, url_for
 from flask_login import login_user, login_required, current_user, logout_user
-from werkzeug.security import check_password_hash
-from .models import Users
 from . import app
+from .utils import check_login
 
 
 @app.route('/main', methods=['GET'])
@@ -16,19 +15,12 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    if username and password:
-        user = Users.query.filter_by(username=username).first()
-
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-
-            next_page = request.args.get('next')
-
-            return redirect(next_page)
-        else:
-            flash('Login or password is not correct')
+    if user := check_login(username, password):
+        login_user(user)
+        next_page = request.args.get('next')
+        return redirect(next_page)
     else:
-        flash('Fill login and password')
+        flash('Incorrect login or password')
 
     return render_template('login.html')
 
