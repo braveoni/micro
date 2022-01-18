@@ -31,10 +31,9 @@ class UserManager:
         self.db.session.commit()
 
     def check(self, username, password):
-        if username and password:
-            user = self.get(username=username)
+        user = self.get(username=username)
 
-            if user and check_password_hash(user.password, password):
-                return user
+        if user and check_password_hash(user.password, password):
+            return user
 
         return False
