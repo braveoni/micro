@@ -2,21 +2,12 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="container">
-    <h1 class="d-flex justify-content-center"> Create new user </h1>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        {% for message in messages %}
-          <div class="d-flex align-items-center justify-content-center alert alert-danger" role="alert">
-            {{message}}
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
+<div class="d-flex-col justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center">
         <form action="" method="post" name="login" class="row g-4">
             {{form.hidden_tag()}}
+
+            <h1 class="d-flex justify-content-center align-items-center"> Create new user </h1>
             <div class="form-floating text-center">
                 {{form.username(class="form-control", placeholder="Username")}}
                 <label class="mx-2" for="username">Username</label>
@@ -30,5 +21,18 @@
             </div>
         </form>
     </div>
+
+    <div class="d-flex justify-content-center align-items-center pt-5">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="d-flex align-items-center justify-content-center alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
 </div>
 {% endblock %}
