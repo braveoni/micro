@@ -5,10 +5,11 @@
 {% block navbar %}
 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Create User</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Create Location</a>
+        <a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Create User</a>
     </li>
 </ul>
+{% endblock %}
+
+{% block content %}
+
 {% endblock %}

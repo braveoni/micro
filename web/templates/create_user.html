@@ -1,15 +1,9 @@
 {% extends "base.html" %}
-
-{% block navbar %}
-<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Login</a>
-    </li>
-</ul>
-{% endblock %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
 <div class="container">
+    <h1 class="d-flex justify-content-center"> Create new user </h1>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         {% for message in messages %}
