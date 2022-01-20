@@ -1,11 +1,13 @@
-from . import db, login_manager
-from flask_login import UserMixin
 from datetime import datetime
+
+from flask_login import UserMixin
+
+from . import db, login_manager
 
 
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(512), nullable=False)

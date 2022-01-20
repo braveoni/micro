@@ -1,7 +1,9 @@
+from datetime import datetime
+
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from web import db
 from web.models import Doors, Users
-from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 
 
 class DoorManager:

@@ -1,5 +1,6 @@
 from flask import request, redirect, flash, render_template, url_for
-from flask_login import login_user, login_required, current_user, logout_user
+from flask_login import login_user, login_required, logout_user
+
 from . import app
 from .forms import UserForm
 from .manager import UserManager, DoorManager

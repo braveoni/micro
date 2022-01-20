@@ -1,5 +1,6 @@
-from .models import Users
 from werkzeug.security import check_password_hash
+
+from .models import Users
 
 
 def check_login(username, password):
