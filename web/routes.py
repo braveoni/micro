@@ -1,7 +1,7 @@
 from flask import request, redirect, flash, render_template, url_for
 from flask_login import login_user, login_required, logout_user
 
-from . import app
+from . import app, graphs
 from .forms import UserForm
 from .manager import UserManager, DoorManager
 
@@ -9,10 +9,14 @@ u_manager = UserManager()
 d_manager = DoorManager()
 
 
-@app.route('/main', methods=['GET'])
+@app.route('/', methods=['GET'])
 @login_required
 def main():
-    return render_template('main.html')
+    return render_template(
+        'main.html',
+        hist=graphs.plot_hist(),
+        pie=graphs.plot_pie()
+    )
 
 
 @app.route('/login', methods=['GET', 'POST'])
