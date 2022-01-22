@@ -1,9 +1,5 @@
-import datetime
-import json
-
 from flask import jsonify, request, redirect, flash, render_template, url_for
 from flask_login import login_user, login_required, logout_user
-import pandas as pd
 
 from .grapher import Graph
 
@@ -80,11 +76,10 @@ def get_data():
 
     if action == '1':
         d_manager.add(loc)
-    else:
-        if not d_manager.get_data(location=loc, close=None):
-            return "", 400
+    elif not d_manager.get_data(location=loc, close=None):
+        return "", 400
 
-        d_manager.update(loc)
+    d_manager.update(loc)
 
     return "", 200
 
