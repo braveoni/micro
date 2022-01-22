@@ -29,7 +29,7 @@ class UserManager:
         return self.db.session.query(Users).filter_by(**kwargs).first()
 
     def add(self, username, password):
-        self.db.session.add(Users(username=username, password=generate_password_hash(password)))
+        self.db.session.add(Users(username, password))
         self.db.session.commit()
 
     def check(self, username, password):

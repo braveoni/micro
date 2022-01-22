@@ -4,17 +4,24 @@
 
 {% block navbar %}
 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Create User</a>
-    </li>
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Create User</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Status</a>
+	</li>
 </ul>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    {{ pie | safe }}
+<div class="d-flex flex-row justify-content-center">
+	<div class="w-25">
+		<canvas id="doughnut"></canvas>
+	</div>
+	<div class="w-50">
+		<canvas id="line"></canvas>
+	</div>
 </div>
-<div class="container">
-    {{ hist | safe }}
-</div>
+<script src="{{ url_for('static', filename='line.js') }}"></script>
+<script src="{{ url_for('static', filename='doughnut.js') }}"></script>
 {% endblock %}

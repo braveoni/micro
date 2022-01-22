@@ -11,6 +11,20 @@ df['open'].astype('datetime64')
 df['close'].astype('datetime64')
 
 
+def pie():
+    d = df['location'].value_counts().to_dict()
+
+    return list(d.keys()), list(d.values())
+
+
+def line(freq='min'):
+    d = df.groupby(pd.Grouper(key='open', freq=freq)).count()
+    d = d.drop(['close', 'location'], axis=1).to_dict()['id']
+    k = d.keys()
+    v = d.values()
+
+    return list(k), list(v)
+
 def plot_pie():
     d = df['location'].value_counts().to_dict()
 

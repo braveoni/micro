@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 
 from . import db, login_manager
 
@@ -12,31 +13,39 @@ class Users(UserMixin, db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(512), nullable=False)
 
+    def __init__(self, username, password):
+        self.username = username
+        self.password = generate_password_hash(password)
 
-class Locations(db.Model):
-    __tablename__ = 'locations'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(512), nullable=False, unique=True)
-    door_list = db.relationship('Doors', backref='locations', lazy='dynamic')
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'password': self.password
+        }
 
 
 class Doors(db.Model):
     __tablename__ = 'doors'
 
     id = db.Column(db.Integer, primary_key=True)
-    location = db.Column(db.String(512), db.ForeignKey('locations.name'), nullable=False)
-    action = db.relationship('Actions', backref='doors', lazy='dynamic')
+    location = db.Column(db.String(512), nullable=False)
+    open = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    close = db.Column(db.DateTime)
 
+    def __init__(self, location):
+        self.location = location
+        self.close = None
 
-class Actions(db.Model):
-    __tablename__ = 'actions'
-
-    id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.DateTime, nullable=False,
-                          default=datetime.utcnow())
-    door_id = db.Column(db.Integer, db.ForeignKey('doors.id'))
-    action = db.Column(db.Boolean, nullable=False)
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'location': self.location,
+            'open': self.open.strftime("%m/%d/%Y, %H:%M"),
+            'close': self.close.strftime("%m/%d/%Y, %H:%M")
+        }
 
 
 @login_manager.user_loader
