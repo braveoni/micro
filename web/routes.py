@@ -17,6 +17,41 @@ def main():
     return render_template('main.html')
 
 
+@app.route('/moderate', methods=['GET', 'POST'])
+def moderate():
+    data = d_manager.get_data()
+
+    return render_template('moderate.html', data=data)
+
+
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    if request.method == 'POST':
+        delete = request.form.get('delete')
+        field = request.form.get('field')
+        value = request.form.get('value')
+        editid = request.form.get('id')
+
+        if delete:
+            d_manager.delete(id=editid)
+        else:
+            if field == 'location':
+                record = d_manager.update_data(id=editid)
+                record.location = value
+            if field == 'open':
+                record = d_manager.update_data(id=editid)
+                record.open = value
+            if field == 'close':
+                record = d_manager.update_data(id=editid)
+                record.close = value
+
+            d_manager.commit()
+
+        success = 1
+
+    return jsonify(success)
+
+
 @app.route('/data')
 @login_required
 def get():
