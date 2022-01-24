@@ -27,7 +27,8 @@ def get():
 
     return jsonify({
         'doughnut': g.get_doughnut(),
-        'line': line
+        'line': line,
+        'table': g.get_table()
     })
 
 

@@ -4,13 +4,7 @@ var line = new Chart(ctx, {
 	type: 'line',
 	data: {
 		labels: [],
-		datasets: [{
-			label: 'Counts',
-			data: [],
-			backgroundColor: 'rgb(112, 68, 255, 0.3)',
-			fill: true,
-			tension: 0.4,
-		}]
+		datasets: []
 	},
 	options: {
 		responsive: true,
@@ -26,16 +20,24 @@ var line = new Chart(ctx, {
 	}
 });
 
+const objectsEqual = (o1, o2) =>
+	typeof o1 === 'object' && Object.keys(o1).length > 0
+		? Object.keys(o1).length === Object.keys(o2).length
+		&& Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
+		: o1 === o2;
+
 var getData = () => {
 	$.ajax({
 		url: '/data',
 		success: function (data) {
-			line.data.labels = data['line']['labels'];
-			line.data.datasets[0].data = data['line']['data']
-
-			line.update();
+			console.log(data['line']['data']);
+			if (!objectsEqual(line.data.datasets), data['line']['data']) {
+				line.data.datasets = data['line']['data'];
+				line.data.labels = data['line']['labels'];
+				line.update();
+			};
 		}
 	});
 };
 
-setInterval(getData, 500);
+setInterval(getData, 100)

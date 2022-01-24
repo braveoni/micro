@@ -8,7 +8,7 @@
 		<a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Create User</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Status</a>
+		<a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Moderation</a>
 	</li>
 </ul>
 {% endblock %}
@@ -22,6 +22,19 @@
 		<canvas id="line"></canvas>
 	</div>
 </div>
-<script src="{{ url_for('static', filename='line.js') }}"></script>
-<script src="{{ url_for('static', filename='doughnut.js') }}"></script>
+<div class="d-flex justify-content-center">
+	<table class="table" id="table" style="width:100%">
+		<thead>
+			<tr>
+				<th scope="col">Location</th>
+				<th scope="col">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+<script type="module" src="{{ url_for('static', filename='line.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='doughnut.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='table.js') }}"></script>
 {% endblock %}

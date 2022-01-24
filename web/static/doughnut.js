@@ -2,6 +2,7 @@ var ctx = document.getElementById('doughnut');
 
 const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52);
 const randomRGB = () => `rgb(${randomNum()}, ${randomNum()}, ${randomNum()}, 0.6)`;
+
 const addColor = (f, s) => {
     for (var i = 0; i < f - s; i++) {
         doughnut.data.datasets[0].backgroundColor.push(randomRGB());
@@ -43,4 +44,4 @@ var getData = function () {
     });
 };
 
-setInterval(getData, 500);
+setInterval(getData, 100);
