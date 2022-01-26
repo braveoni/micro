@@ -52,6 +52,14 @@ def update():
     return jsonify(success)
 
 
+@app.route('/table')
+@login_required
+def table():
+    data = d_manager.get_data()
+
+    return render_template('table.html', data=data)
+
+
 @app.route('/data')
 @login_required
 def get():

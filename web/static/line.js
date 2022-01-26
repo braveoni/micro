@@ -30,7 +30,6 @@ var getData = () => {
 	$.ajax({
 		url: '/data',
 		success: function (data) {
-			console.log(data['line']['data']);
 			if (!objectsEqual(line.data.datasets), data['line']['data']) {
 				line.data.datasets = data['line']['data'];
 				line.data.labels = data['line']['labels'];

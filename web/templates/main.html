@@ -10,6 +10,9 @@
 	<li class="nav-item">
 		<a class="nav-link active" aria-current="page" href="{{ url_for('create_user') }}">Moderation</a>
 	</li>
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="{{ url_for('table') }}">Table</a>
+	</li>
 </ul>
 {% endblock %}
 
@@ -22,8 +25,8 @@
 		<canvas id="line"></canvas>
 	</div>
 </div>
-<div class="d-flex justify-content-center">
-	<table class="table" id="table" style="width:100%">
+<div class="d-flex justify-content-center w-50">
+	<table class="table" id="table">
 		<thead>
 			<tr>
 				<th scope="col">Location</th>

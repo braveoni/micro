@@ -22,6 +22,10 @@ class Graph:
     def __group(self, key, label, freq='5min'):
         return self.df.set_index(key).groupby(label).resample(freq).count()
 
+    def __get_status(self, location):
+        return self.df.loc[(self.df['close'].isnull()
+                            & self.df['location'] == location)].empty
+
     @staticmethod
     def __to_strftime(time):
         return pd.to_datetime(time).strftime('%d-%m-%Y %H:%M')
@@ -56,18 +60,7 @@ class Graph:
     def get_table(self):
         locations = self.__get('location')
 
-        ans = []
-
-        for location in locations:
-            status = self.df.loc[(self.df['close'].isnull()
-                                  & self.df['location'] == location)].empty
-
-            ans.append(
-                {'location': location, 'status': 'closed' if status else 'open'})
-
-        return ans
-
-
-if __name__ == '__main__':
-    g = Graph()
-    print(g.get_table())
+        return [{
+            'location': location,
+            'status': 'closed' if self.__get_status(location) else 'open'
+        } for location in locations]
